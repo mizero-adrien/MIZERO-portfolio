@@ -3,6 +3,7 @@ import Link from 'next/link';
 import LiveName from '@/components/LiveName';
 import LanguageSwitcher from '@/components/LanguageSwitcher';
 import ContactForm from '@/components/ContactForm';
+import TechnicalSkills from '@/components/TechnicalSkills';
 import { getLang, ui } from '@/data/i18n';
 
 function PhoneIcon() {
@@ -275,11 +276,12 @@ export default async function Home({ searchParams }: HomeProps) {
       <section className="skills-section" id="skills">
         <article className="panel">
           <h2>{t.skillsTitle}</h2>
-          <div className="skill-cloud">
-            {skills.map((skill) => (
-              <span key={skill}>{skill}</span>
-            ))}
-          </div>
+          <TechnicalSkills
+            skills={skills}
+            initiallyVisible={8}
+            moreLabel={t.skillsShowMore}
+            lessLabel={t.skillsShowLess}
+          />
         </article>
 
         <article className="panel">
