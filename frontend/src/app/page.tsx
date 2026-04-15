@@ -4,6 +4,7 @@ import LiveName from '@/components/LiveName';
 import LanguageSwitcher from '@/components/LanguageSwitcher';
 import ContactForm from '@/components/ContactForm';
 import TechnicalSkills from '@/components/TechnicalSkills';
+import ThemeToggle from '@/components/ThemeToggle';
 import { getLang, ui } from '@/data/i18n';
 
 function PhoneIcon() {
@@ -56,13 +57,6 @@ const skills = [
   'Google Maps API',
   'Mobile Money Integrations',
   'FFmpeg Processing'
-];
-
-const experience = [
-  'Built full-stack applications with Django, Django REST Framework, React, Tailwind CSS, .NET Framework, and Flutter for mobile.',
-  'Built a Book Recommendation System using Machine Learning and AI to suggest personalized books based on user interests and behavior.',
-  'Worked on hackathon and academic projects under tight deadlines while keeping delivery stable and user-focused.',
-  'Integrated authentication, uploads, theming, APIs, deployment workflows, and CI/CD pipelines into production-style web applications.'
 ];
 
 const highlights = [
@@ -131,7 +125,10 @@ export default async function Home({ searchParams }: HomeProps) {
           <a href="#skills">{t.navSkills}</a>
           <a href="#contact">{t.navContact}</a>
         </nav>
-        <LanguageSwitcher />
+        <div className="header-controls">
+          <ThemeToggle lightLabel={t.themeLight} darkLabel={t.themeDark} />
+          <LanguageSwitcher />
+        </div>
       </header>
 
       <section className="hero">
@@ -221,33 +218,31 @@ export default async function Home({ searchParams }: HomeProps) {
         </aside>
       </section>
 
-      <section className="content-grid" id="about">
-        <article className="panel about-panel">
-          <h2>{t.summaryTitle}</h2>
-          <p>
-            Motivated software engineer with a strong passion for full-stack development
-            and a background in Django, Python, and JavaScript. I focus on clean backend
-            architecture, responsive frontend experiences, and practical solutions that
-            work in real environments.
-          </p>
-          <p>
-            I turn software ideas into dependable products with clean architecture,
-            strong delivery habits, and measurable impact.
-          </p>
-          <p>
-            I communicate clearly, collaborate effectively, and enjoy learning new tools
-            that help solve complex problems with discipline and precision.
-          </p>
-        </article>
+      <section className="panel about-panel" id="about">
+        <h2>{t.summaryTitle}</h2>
+        <p>
+          Motivated software engineer with a strong passion for full-stack development
+          and a background in Django, Python, and JavaScript. I focus on clean backend
+          architecture, responsive frontend experiences, and practical solutions that
+          work in real environments.
+        </p>
+        <p>
+          I turn software ideas into dependable products with clean architecture,
+          strong delivery habits, and measurable impact.
+        </p>
+        <p>
+          I communicate clearly, collaborate effectively, and enjoy learning new tools
+          that help solve complex problems with discipline and precision.
+        </p>
+      </section>
 
-        <article className="panel education-panel">
-          <h2>{t.educationTitle}</h2>
-          <div className="timeline-item">
-            <h3>Bachelor of Science in Information Technology</h3>
-            <p>University of Rwanda, Kigali</p>
-            <span>Expected Graduation: 2026</span>
-          </div>
-        </article>
+      <section className="panel education-panel" id="education">
+        <h2>{t.educationTitle}</h2>
+        <div className="timeline-item">
+          <h3>Bachelor of Science in Information Technology</h3>
+          <p>University of Rwanda, Kigali</p>
+          <span>Expected Graduation: 2026</span>
+        </div>
       </section>
 
       <section className="panel" id="capabilities">
@@ -258,17 +253,6 @@ export default async function Home({ searchParams }: HomeProps) {
               <h3>{capability.title}</h3>
               <p>{capability.details}</p>
             </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="panel" id="experience">
-        <h2>{t.experienceTitle}</h2>
-        <div className="list-grid">
-          {experience.map((item) => (
-            <div key={item} className="list-card">
-              {item}
-            </div>
           ))}
         </div>
       </section>

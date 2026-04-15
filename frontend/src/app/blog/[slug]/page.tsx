@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import LanguageSwitcher from '@/components/LanguageSwitcher';
+import ThemeToggle from '@/components/ThemeToggle';
 import { blogPosts } from '@/data/blog';
 import { notFound } from 'next/navigation';
 import { createElement } from 'react';
@@ -58,7 +59,10 @@ export default async function BlogPostPage({ params, searchParams }: BlogPostPag
           <Link href={`/blog?lang=${lang}`}>{t.navBlog}</Link>
           <Link href={`/?lang=${lang}#contact`}>{t.navContact}</Link>
         </nav>
-        <LanguageSwitcher />
+        <div className="header-controls">
+          <ThemeToggle lightLabel={t.themeLight} darkLabel={t.themeDark} />
+          <LanguageSwitcher />
+        </div>
       </header>
 
       <section className="panel">

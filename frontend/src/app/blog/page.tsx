@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import LanguageSwitcher from '@/components/LanguageSwitcher';
+import ThemeToggle from '@/components/ThemeToggle';
 import { blogPosts } from '@/data/blog';
 import { getLang, ui } from '@/data/i18n';
 
@@ -32,7 +33,10 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
           <Link href={`/blog?lang=${lang}`}>{t.navBlog}</Link>
           <Link href={`/?lang=${lang}#contact`}>{t.navContact}</Link>
         </nav>
-        <LanguageSwitcher />
+        <div className="header-controls">
+          <ThemeToggle lightLabel={t.themeLight} darkLabel={t.themeDark} />
+          <LanguageSwitcher />
+        </div>
       </header>
 
       <section className="panel">

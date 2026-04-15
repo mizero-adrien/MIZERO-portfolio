@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import LanguageSwitcher from '@/components/LanguageSwitcher';
+import ThemeToggle from '@/components/ThemeToggle';
 import { notFound } from 'next/navigation';
 import { getLang, ui } from '@/data/i18n';
 import { projects } from '@/data/projects';
@@ -56,7 +57,10 @@ export default async function ProjectDetailPage({ params, searchParams }: Props)
           <Link href={`/projects?lang=${lang}`}>{t.navProjects}</Link>
           <Link href={`/?lang=${lang}#contact`}>{t.navContact}</Link>
         </nav>
-        <LanguageSwitcher />
+        <div className="header-controls">
+          <ThemeToggle lightLabel={t.themeLight} darkLabel={t.themeDark} />
+          <LanguageSwitcher />
+        </div>
       </header>
 
       <section className="panel">

@@ -74,6 +74,44 @@
   --dur-slow:         400ms;
 }
 
+[data-theme='dark'] {
+  --bg:               #091016;
+  --bg-alt:           #0e1720;
+  --bg-deep:          #121d28;
+
+  --surface:          rgba(14, 22, 31, 0.82);
+  --surface-raised:   rgba(18, 27, 37, 0.96);
+  --surface-strong:   #121b25;
+
+  --text:             #f3efe8;
+  --text-secondary:   #d7e0e8;
+  --muted:            #a1adba;
+  --muted-light:      #7d8996;
+
+  --border:           rgba(217, 228, 238, 0.13);
+  --border-accent:    rgba(126, 190, 196, 0.34);
+
+  --accent:           #79c6cf;
+  --accent-strong:    #a6d8de;
+  --accent-light:     #9ce2ea;
+  --accent-soft:      rgba(121, 198, 207, 0.16);
+  --accent-ultra-soft: rgba(121, 198, 207, 0.08);
+
+  --grad-accent:      linear-gradient(135deg, #17323a 0%, #275760 52%, #3f8590 100%);
+  --grad-card:        linear-gradient(150deg, rgba(16, 23, 32, 0.94) 0%, rgba(12, 18, 25, 0.78) 100%);
+  --grad-bg:
+    radial-gradient(ellipse at 68% 0%,  rgba(121, 198, 207, 0.12) 0%, transparent 55%),
+    radial-gradient(ellipse at 2%  80%, rgba(182, 130, 71, 0.08) 0%, transparent 48%),
+    radial-gradient(ellipse at 90% 60%, rgba(121, 198, 207, 0.05) 0%, transparent 38%);
+
+  --shadow-xs:        0 1px 3px rgba(0, 0, 0, 0.34), 0 1px 2px rgba(0, 0, 0, 0.22);
+  --shadow-sm:        0 4px 14px rgba(0, 0, 0, 0.32), 0 2px 4px rgba(0, 0, 0, 0.20);
+  --shadow-md:        0 10px 30px rgba(0, 0, 0, 0.36), 0 4px 8px rgba(0, 0, 0, 0.22);
+  --shadow-lg:        0 22px 54px rgba(0, 0, 0, 0.42), 0 8px 16px rgba(0, 0, 0, 0.24);
+  --shadow-xl:        0 36px 80px rgba(0, 0, 0, 0.48), 0 12px 24px rgba(0, 0, 0, 0.28);
+  --shadow-accent:    0 14px 38px rgba(121, 198, 207, 0.22);
+}
+
 /* ---- RESET & BASE -------------------------------------------- */
 *, *::before, *::after {
   box-sizing: border-box;
@@ -140,7 +178,7 @@ h1, h2, h3, h4, p, dl, ul {
 main {
   width: min(1180px, calc(100% - 40px));
   margin: 0 auto;
-  padding: 24px 0 88px;
+  padding: 104px 0 88px;
 }
 
 .page-shell {
@@ -152,8 +190,12 @@ main {
    NAVIGATION
    ================================================================ */
 .top-nav {
-  position: sticky;
+  position: fixed;
   top: 16px;
+  left: 20px;
+  right: 20px;
+  width: min(1180px, calc(100% - 40px));
+  margin: 0 auto;
   z-index: var(--z-nav);
   display: flex;
   align-items: center;
@@ -241,6 +283,70 @@ main {
 .top-nav nav a:active {
   transform: translateY(0);
   box-shadow: none;
+}
+
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* ---- Theme Toggle -------------------------------------------- */
+.theme-toggle {
+  min-height: 34px;
+  padding: 0 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.82);
+  color: var(--text);
+  font-size: 0.84rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    transform var(--dur-base) var(--ease),
+    background var(--dur-base) var(--ease),
+    border-color var(--dur-base) var(--ease),
+    box-shadow var(--dur-base) var(--ease),
+    color var(--dur-base) var(--ease);
+}
+
+.theme-toggle:hover {
+  transform: translateY(-1px);
+  background: rgba(255, 255, 255, 0.96);
+  border-color: var(--border-accent);
+  box-shadow: var(--shadow-xs);
+}
+
+.theme-toggle:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.theme-toggle-icon {
+  width: 18px;
+  height: 18px;
+  display: inline-grid;
+  place-items: center;
+  color: var(--accent-strong);
+  flex: 0 0 auto;
+}
+
+.theme-toggle-icon svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.theme-toggle-text {
+  white-space: nowrap;
 }
 
 /* ---- Language Switcher --------------------------------------- */
@@ -1707,6 +1813,11 @@ h1 {
     grid-template-columns: 1fr 1fr;
   }
 
+  .header-controls {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
   .portrait-placeholder {
     min-height: 300px;
   }
@@ -1734,7 +1845,7 @@ h1 {
 @media (max-width: 720px) {
   main {
     width: min(100% - 24px, 1180px);
-    padding: 14px 0 64px;
+    padding: 96px 0 64px;
   }
 
   .page-shell {
@@ -1743,6 +1854,9 @@ h1 {
 
   .top-nav {
     top: 10px;
+    left: 12px;
+    right: 12px;
+    width: min(100% - 24px, 1180px);
     border-radius: 22px;
     flex-direction: column;
     align-items: flex-start;
@@ -1755,12 +1869,23 @@ h1 {
   }
 
   .language-switcher,
+  .header-controls,
   .lang-switcher {
     width: 100%;
   }
 
+  .header-controls {
+    justify-content: space-between;
+  }
+
   .language-select {
     width: 100%;
+  }
+
+  .theme-toggle,
+  .language-switcher {
+    flex: 1;
+    justify-content: center;
   }
 
   .lang-chip {

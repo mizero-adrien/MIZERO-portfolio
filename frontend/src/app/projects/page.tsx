@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import LanguageSwitcher from '@/components/LanguageSwitcher';
+import ThemeToggle from '@/components/ThemeToggle';
 import { projects } from '@/data/projects';
 import { getLang, ui } from '@/data/i18n';
 
@@ -26,7 +27,10 @@ export default async function ProjectsPage({ searchParams }: ProjectsPageProps) 
           <Link href={`/projects?lang=${lang}`}>{t.navProjects}</Link>
           <Link href={`/?lang=${lang}#contact`}>{t.navContact}</Link>
         </nav>
-        <LanguageSwitcher />
+        <div className="header-controls">
+          <ThemeToggle lightLabel={t.themeLight} darkLabel={t.themeDark} />
+          <LanguageSwitcher />
+        </div>
       </header>
 
       <section className="panel">
