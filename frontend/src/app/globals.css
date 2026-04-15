@@ -83,10 +83,10 @@
   --surface-raised:   rgba(18, 27, 37, 0.96);
   --surface-strong:   #121b25;
 
-  --text:             #f3efe8;
-  --text-secondary:   #d7e0e8;
-  --muted:            #a1adba;
-  --muted-light:      #7d8996;
+  --text:             #fcf8f2;
+  --text-secondary:   #eef3f7;
+  --muted:            #ccd8e2;
+  --muted-light:      #aebccc;
 
   --border:           rgba(217, 228, 238, 0.13);
   --border-accent:    rgba(126, 190, 196, 0.34);
@@ -278,6 +278,36 @@ main {
   color: var(--text);
   transform: translateY(-1px);
   box-shadow: var(--shadow-xs);
+}
+
+[data-theme='dark'] .top-nav,
+[data-theme='dark'] .theme-toggle,
+[data-theme='dark'] .language-select {
+  background: rgba(10, 17, 24, 0.86);
+  color: var(--text);
+}
+
+[data-theme='dark'] .top-nav nav a {
+  color: var(--text-secondary);
+}
+
+[data-theme='dark'] .top-nav nav a:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text);
+}
+
+[data-theme='dark'] .theme-toggle:hover,
+[data-theme='dark'] .language-select:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--border-accent);
+}
+
+[data-theme='dark'] .language-select {
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23eef3f7' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+}
+
+[data-theme='dark'] .theme-toggle-icon {
+  color: var(--accent-light);
 }
 
 .top-nav nav a:active {

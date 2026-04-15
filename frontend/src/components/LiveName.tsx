@@ -3,20 +3,22 @@
 import { useEffect, useState } from 'react';
 
 const fullName = 'Adrien Mizero';
+const firstName = 'Adrien';
+const lastName = 'Mizero';
 
 export default function LiveName() {
   const [text, setText] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
-    const isComplete = text === fullName;
+    const isComplete = text === lastName;
     const isEmpty = text.length === 0;
 
     const timeout = setTimeout(
       () => {
         if (!isDeleting) {
           if (!isComplete) {
-            setText(fullName.slice(0, text.length + 1));
+            setText(lastName.slice(0, text.length + 1));
           } else {
             setIsDeleting(true);
           }
@@ -24,7 +26,7 @@ export default function LiveName() {
         }
 
         if (!isEmpty) {
-          setText(fullName.slice(0, text.length - 1));
+          setText(lastName.slice(0, text.length - 1));
         } else {
           setIsDeleting(false);
         }
@@ -37,7 +39,8 @@ export default function LiveName() {
 
   return (
     <span className="live-name" aria-label={fullName}>
-      {text}
+      <span className="live-name-first">{firstName} </span>
+      <span className="live-name-last">{text}</span>
       <span className="live-caret" aria-hidden="true">
         |
       </span>

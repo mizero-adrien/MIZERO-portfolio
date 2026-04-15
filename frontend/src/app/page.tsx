@@ -199,14 +199,13 @@ export default async function Home({ searchParams }: HomeProps) {
           <div className="portrait-placeholder">
             <Image
               src="/images/adrien-mizero.jpeg"
-              alt="Portrait of Adrien Mizero"
+              alt="Adrien Mizero"
               fill
               priority
               sizes="(max-width: 1040px) 100vw, 32vw"
               className="portrait-image"
             />
           </div>
-          <p className="portrait-note">Photo path: public/images/adrien-mizero.jpeg</p>
           <div className="profile-meta">
             <p className="profile-label">Currently focused on</p>
             <ul>
