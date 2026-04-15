@@ -28,7 +28,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
           <strong>Adrien Mizero</strong>
         </Link>
         <nav aria-label="Blog navigation">
-          <Link href={`/?lang=${lang}`}>Home</Link>
+          <Link href={`/?lang=${lang}`}>{t.home}</Link>
           <Link href={`/blog?lang=${lang}`}>{t.navBlog}</Link>
           <Link href={`/?lang=${lang}#contact`}>{t.navContact}</Link>
         </nav>
@@ -65,7 +65,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
               <div className="blog-footer">
                 <span className="blog-read-time">{post.readTime} min read</span>
                 <Link href={`/blog/${post.slug}?lang=${lang}`} className="blog-read-more">
-                  Read Article →
+                  {t.readArticle} →
                 </Link>
               </div>
             </article>

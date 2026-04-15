@@ -52,7 +52,7 @@ export default async function ProjectDetailPage({ params, searchParams }: Props)
           <strong>Adrien Mizero</strong>
         </Link>
         <nav aria-label="Projects navigation">
-          <Link href={`/?lang=${lang}`}>Home</Link>
+          <Link href={`/?lang=${lang}`}>{t.home}</Link>
           <Link href={`/projects?lang=${lang}`}>{t.navProjects}</Link>
           <Link href={`/?lang=${lang}#contact`}>{t.navContact}</Link>
         </nav>

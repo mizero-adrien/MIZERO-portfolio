@@ -22,7 +22,7 @@ export default async function ProjectsPage({ searchParams }: ProjectsPageProps) 
           <strong>Adrien Mizero</strong>
         </Link>
         <nav aria-label="Projects navigation">
-          <Link href={`/?lang=${lang}`}>Home</Link>
+          <Link href={`/?lang=${lang}`}>{t.home}</Link>
           <Link href={`/projects?lang=${lang}`}>{t.navProjects}</Link>
           <Link href={`/?lang=${lang}#contact`}>{t.navContact}</Link>
         </nav>
@@ -48,12 +48,12 @@ export default async function ProjectsPage({ searchParams }: ProjectsPageProps) 
               <div className="project-links">
                 {project.liveDemoUrl ? (
                   <a href={project.liveDemoUrl} target="_blank" rel="noreferrer" className="primary-button">
-                    Live Demo
+                    {t.liveDemo}
                   </a>
                 ) : null}
                 {project.githubUrl ? (
                   <a href={project.githubUrl} target="_blank" rel="noreferrer" className="secondary-button">
-                    GitHub
+                    {t.gitHub}
                   </a>
                 ) : null}
               </div>

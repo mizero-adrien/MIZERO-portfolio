@@ -54,7 +54,7 @@ export default async function BlogPostPage({ params, searchParams }: BlogPostPag
           <strong>Adrien Mizero</strong>
         </Link>
         <nav aria-label="Blog navigation">
-          <Link href={`/?lang=${lang}`}>Home</Link>
+          <Link href={`/?lang=${lang}`}>{t.home}</Link>
           <Link href={`/blog?lang=${lang}`}>{t.navBlog}</Link>
           <Link href={`/?lang=${lang}#contact`}>{t.navContact}</Link>
         </nav>
