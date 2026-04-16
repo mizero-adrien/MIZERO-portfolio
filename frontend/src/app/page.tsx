@@ -1,103 +1,171 @@
 import Image from 'next/image';
-import Link from 'next/link';
-import LiveName from '@/components/LiveName';
-import LanguageSwitcher from '@/components/LanguageSwitcher';
+import PortfolioHeader from '@/components/PortfolioHeader';
+import TypewriterRoles from '@/components/TypewriterRoles';
 import ContactForm from '@/components/ContactForm';
-import TechnicalSkills from '@/components/TechnicalSkills';
-import ThemeToggle from '@/components/ThemeToggle';
 import { getLang, ui } from '@/data/i18n';
 
-function PhoneIcon() {
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-      <path d="M6.6 10.8c1.5 2.9 3.7 5.1 6.6 6.6l2.2-2.2c.3-.3.8-.4 1.2-.2 1.3.4 2.7.6 4.1.6.7 0 1.3.6 1.3 1.3V21c0 .7-.6 1.3-1.3 1.3C10.5 22.3 1.7 13.5 1.7 2c0-.7.6-1.3 1.3-1.3h4.1c.7 0 1.3.6 1.3 1.3 0 1.4.2 2.8.6 4.1.1.4 0 .9-.2 1.2L6.6 10.8Z" />
-    </svg>
-  );
-}
+const roles = ['Software Engineer', 'Full-Stack Developer', 'Problem Solver'];
 
-function EmailIcon() {
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-      <path d="M3.5 5.5h17c.8 0 1.5.7 1.5 1.5v10c0 .8-.7 1.5-1.5 1.5h-17C2.7 18.5 2 17.8 2 17V7c0-.8.7-1.5 1.5-1.5Zm0 2 8.5 5.7 8.5-5.7" />
-    </svg>
-  );
-}
+const copyByLang = {
+  en: {
+    hello: 'Hello, I am',
+    homeIntro:
+      'Software engineer based in Kigali, Rwanda, building practical web applications with clean architecture, strong delivery habits, and measurable impact.',
+    aboutTitle: 'About Me',
+    aboutRole: "I'm a Software Engineer",
+    aboutBody:
+      'I build full-stack products with Django, .NET, React, and modern tooling, focusing on maintainable code, clear UX, and production-ready delivery.',
+    readMore: 'Read more',
+    myServices: 'My Services',
+    myProjects: 'My Projects',
+    myCertifications: 'My Certifications',
+    discussProject: 'Discuss Project',
+    certificate: 'Certificate',
+    testimonial: 'Testimonial',
+    contactMe: 'Contact Me',
+    sendMessage: 'Send Message',
+    sending: 'Sending...',
+    success: 'Message sent successfully.',
+    error: 'Failed to send message. Try again.',
+    hireMe: 'Hire Me'
+  },
+  fr: {
+    hello: 'Bonjour, je suis',
+    homeIntro:
+      'Ingenieur logiciel base a Kigali, Rwanda, je construis des applications web pratiques avec une architecture propre et une execution fiable.',
+    aboutTitle: 'A propos de moi',
+    aboutRole: 'Je suis ingenieur logiciel',
+    aboutBody:
+      'Je developpe des produits full-stack avec Django, React et des outils modernes, en priorisant la qualite et la maintenabilite.',
+    readMore: 'Lire plus',
+    myServices: 'Mes services',
+    myProjects: 'Mes projets',
+    myCertifications: 'Mes certifications',
+    discussProject: 'Discuter du projet',
+    certificate: 'Certificat',
+    testimonial: 'Temoignage',
+    contactMe: 'Contactez-moi',
+    sendMessage: 'Envoyer le message',
+    sending: 'Envoi en cours...',
+    success: 'Message envoye avec succes.',
+    error: 'Echec de l envoi. Veuillez reessayer.',
+    hireMe: 'Engagez-moi'
+  },
+  rw: {
+    hello: 'Muraho, nitwa',
+    homeIntro:
+      'Ndi software engineer i Kigali, Rwanda, nkora web applications zifite architecture nziza kandi zitangwa neza.',
+    aboutTitle: 'Ibyanjye',
+    aboutRole: 'Ndi software engineer',
+    aboutBody:
+      'Nkora full-stack products nkoresheje Django, React n izindi tools zigezweho, nshyira imbere code isukuye kandi yizewe.',
+    readMore: 'Soma byinshi',
+    myServices: 'Serivisi zanjye',
+    myProjects: 'Imishinga yanjye',
+    myCertifications: 'Impamyabushobozi zanjye',
+    discussProject: 'Vuganaho umushinga',
+    certificate: 'Impamyabumenyi',
+    testimonial: 'Ubuhamya',
+    contactMe: 'Vugana nanjye',
+    sendMessage: 'Ohereza ubutumwa',
+    sending: 'Ihereza...',
+    success: 'Ubutumwa bwoherejwe neza.',
+    error: 'Ntibyakunze kohereza ubutumwa. Ongera ugerageze.',
+    hireMe: 'Nkorana nanjye'
+  }
+} as const;
 
-function LinkedInIcon() {
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-      <path d="M6.5 9.5H3.4V21h3.1V9.5ZM5 2.7A1.8 1.8 0 1 0 5 6.3a1.8 1.8 0 0 0 0-3.6Zm4.1 6.8V21h3v-6.1c0-1.6.3-3.2 2.3-3.2s2 1.8 2 3.3V21h3v-6.8c0-3.3-.7-5.8-4.5-5.8-1.8 0-3 1-3.5 2H12V9.5h-2.9Z" />
-    </svg>
-  );
-}
-
-const skills = [
-  'Python',
-  'JavaScript',
-  'C#',
-  'SQL',
-  'HTML',
-  'CSS',
-  'Django',
-  'Django REST Framework',
-  'JWT Authentication',
-  'React',
-  'Tailwind CSS',
-  'Next.js',
-  'Vite',
-  'PostgreSQL',
-  'MySQL',
-  'Microsoft Azure',
-  'Git',
-  'GitHub',
-  'CI/CD Pipelines',
-  'Deployment Automation',
-  'Netlify',
-  'Firebase',
-  'Google Maps API',
-  'Mobile Money Integrations',
-  'FFmpeg Processing'
+const testimonials = [
+  {
+    name: 'Client A',
+    text: 'Adrien delivered reliable features quickly and communicated every milestone clearly.'
+  },
+  {
+    name: 'Client B',
+    text: 'Great execution quality, clean UI, and dependable backend work from start to finish.'
+  },
+  {
+    name: 'Client C',
+    text: 'Professional, focused, and consistent with deadlines even during rapid iteration cycles.'
+  }
 ];
 
-const highlights = [
-  { value: '6+', label: 'Projects delivered across web and API work' },
-  { value: 'Full-stack', label: 'Backend, frontend, integrations, and deployment' }
-];
-
-const capabilities = [
+const coreCapabilities = [
   {
     title: 'Backend Architecture',
-    details:
+    description:
       'Scalable Django and DRF APIs with authentication, role-ready data models, and secure integration patterns.'
   },
   {
     title: 'Frontend Delivery',
-    details:
+    description:
       'Modern interfaces with React and Next.js focused on clarity, responsiveness, and performance.'
   },
   {
     title: 'Systems Integration',
-    details:
+    description:
       'Reliable integrations with payment services, mapping APIs, media pipelines, and external services using stable data contracts.'
   },
   {
     title: 'Deployment & Operations',
-    details:
+    description:
       'Production-ready delivery using CI/CD pipelines, environment-aware configuration, release automation, and post-deployment monitoring for dependable uptime.'
   }
-];
-
-const process = [
-  'Discover requirements and user outcomes.',
-  'Design architecture and reliable data flow.',
-  'Build iterative features with clean code standards.',
-  'Deploy, monitor, and refine from real usage feedback.'
 ];
 
 const certifications = [
   'Africa on FHIR certificate',
   'PC hardware maintenance certificate',
   'AFRETEC web development certificate'
+];
+
+const educationByLang = {
+  en: [
+    {
+      program: 'Bachelor in Information Systems',
+      institution: 'University of Rwanda',
+      period: '2022 - 2026',
+      description:
+        'Focused on software engineering fundamentals, data structures, databases, and practical full-stack project delivery.'
+    }
+  ],
+  fr: [
+    {
+      program: 'Licence en systemes d information',
+      institution: 'Universite du Rwanda',
+      period: '2022 - 2026',
+      description:
+        'Formation axee sur les fondamentaux du genie logiciel, les structures de donnees, les bases de donnees et la livraison full-stack.'
+    }
+  ],
+  rw: [
+    {
+      program: 'Icyiciro cya mbere cya kaminuza muri Information Systems',
+      institution: 'Kaminuza y u Rwanda',
+      period: '2022 - 2026',
+      description:
+        'Nize neza iby ibanze muri software engineering, data structures, databases no gutanga imishinga ya full-stack.'
+    }
+  ]
+} as const;
+
+const experiences = [
+  {
+    company: 'Freelance & Personal Projects',
+    role: 'Full-Stack Software Engineer',
+    description:
+      'Built and shipped web applications with Django, React, and Next.js while handling API design, integrations, testing, and deployment workflows.',
+    startDate: '2023',
+    endDate: 'Present'
+  },
+  {
+    company: 'University of Rwanda Projects',
+    role: 'Software Developer',
+    description:
+      'Delivered research and coursework projects including recommendation systems and safety-focused solutions with measurable outcomes.',
+    startDate: '2022',
+    endDate: '2024'
+  }
 ];
 
 type HomeProps = {
@@ -109,228 +177,235 @@ type HomeProps = {
 export default async function Home({ searchParams }: HomeProps) {
   const params = await searchParams;
   const lang = getLang(params?.lang);
-  const t = ui[lang];
+  const uiText = ui[lang];
+  const copy = copyByLang[lang];
+  const education = educationByLang[lang];
 
   return (
-    <main className="page-shell">
-      <header className="top-nav" id="top">
-        <a href="#top" className="brand">
-          <span>AM</span>
-          <strong>Adrien Mizero</strong>
-        </a>
-        <nav aria-label="Main navigation">
-          <a href="#about">{t.navAbout}</a>
-          <Link href={`/projects?lang=${lang}`}>{t.navProjects}</Link>
-          <Link href={`/blog?lang=${lang}`}>{t.navBlog}</Link>
-          <a href="#skills">{t.navSkills}</a>
-          <a href="#contact">{t.navContact}</a>
-        </nav>
-        <div className="header-controls">
-          <ThemeToggle lightLabel={t.themeLight} darkLabel={t.themeDark} />
-          <LanguageSwitcher />
-        </div>
-      </header>
+    <>
+      <PortfolioHeader
+        labels={{
+          home: uiText.home,
+          about: uiText.navAbout,
+          services: copy.myServices,
+          projects: uiText.navProjects,
+          blog: uiText.navBlog,
+          certifications: uiText.certificationsTitle,
+          experience: uiText.experienceTitle
+        }}
+        themeLight={uiText.themeLight}
+        themeDark={uiText.themeDark}
+      />
 
-      <section className="hero">
-        <div className="hero-copy">
-          <h1>
-            <LiveName />
-          </h1>
-          <p className="eyebrow">{t.subtitle}</p>
-          <div className="highlight-row" aria-label="Profile highlights">
-            {highlights.map((highlight) => (
-              <div key={highlight.label} className="highlight-card">
-                <strong>{highlight.value}</strong>
-                <span>{highlight.label}</span>
-              </div>
-            ))}
-          </div>
-          <div className="hero-actions">
-            <Link href={`/projects?lang=${lang}`} className="primary-button">
-              {t.viewProjects}
-            </Link>
-            <a href="#contact" className="secondary-button">
-              {t.contactMe}
+      <section id="home" className="home">
+        <div className="home-img">
+          <Image
+            src="/images/adrien-mizero.jpeg"
+            alt="Adrien Mizero"
+            width={460}
+            height={460}
+            priority
+          />
+        </div>
+        <div className="home-content">
+          <h3>{copy.hello}</h3>
+          <h1>Adrien Mizero</h1>
+          <h3>
+            And I&apos;m a <TypewriterRoles roles={roles} />
+          </h3>
+          <p>{copy.homeIntro}</p>
+          <div className="social-media">
+            <a href="https://www.linkedin.com/in/adrien-mizero-b4690539a" target="_blank" rel="noreferrer" aria-label="LinkedIn">
+              <i className="bx bxl-linkedin" />
+            </a>
+            <a href="https://github.com" target="_blank" rel="noreferrer" aria-label="GitHub">
+              <i className="bx bxl-github" />
+            </a>
+            <a href="mailto:admizero66@gmail.com" aria-label="Email">
+              <i className="bx bxs-envelope" />
+            </a>
+            <a href="tel:+250786649017" aria-label="Phone">
+              <i className="bx bxs-phone" />
             </a>
           </div>
-          <dl className="contact-strip">
-            <div className="contact-item">
-              <dt>Phone</dt>
-              <dd>
-                <a href="tel:+250786649017" className="contact-link">
-                  <span className="contact-icon" aria-hidden="true">
-                    <PhoneIcon />
-                  </span>
-                  <span>0786649017</span>
-                </a>
-              </dd>
-            </div>
-            <div className="contact-item">
-              <dt>Email</dt>
-              <dd>
-                <a href="mailto:admizero66@gmail.com" className="contact-link">
-                  <span className="contact-icon" aria-hidden="true">
-                    <EmailIcon />
-                  </span>
-                  <span>admizero66@gmail.com</span>
-                </a>
-              </dd>
-            </div>
-            <div className="contact-item contact-item-icon-only">
-              <dt className="visually-hidden">LinkedIn</dt>
-              <dd>
-                <a
-                  href="https://www.linkedin.com/in/adrien-mizero-b4690539a"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="contact-link"
-                  aria-label="LinkedIn profile"
-                >
-                  <span className="contact-icon" aria-hidden="true">
-                    <LinkedInIcon />
-                  </span>
-                </a>
-              </dd>
-            </div>
-          </dl>
-        </div>
-
-        <aside className="profile-card" aria-label="Profile summary">
-          <div className="portrait-placeholder">
-            <Image
-              src="/images/adrien-mizero.jpeg"
-              alt="Adrien Mizero"
-              fill
-              priority
-              sizes="(max-width: 1040px) 100vw, 32vw"
-              className="portrait-image"
-            />
-          </div>
-          <div className="profile-meta">
-            <p className="profile-label">Currently focused on</p>
-            <ul>
-              <li>Flutter development</li>
-              <li>Data Structures and Algorithms</li>
-              <li>Artificial intelligence</li>
-            </ul>
-          </div>
-        </aside>
-      </section>
-
-      <section className="panel about-panel" id="about">
-        <h2>{t.summaryTitle}</h2>
-        <p>
-          Motivated software engineer with a strong passion for full-stack development
-          and a background in Django, Python, and JavaScript. I focus on clean backend
-          architecture, responsive frontend experiences, and practical solutions that
-          work in real environments.
-        </p>
-        <p>
-          I turn software ideas into dependable products with clean architecture,
-          strong delivery habits, and measurable impact.
-        </p>
-        <p>
-          I communicate clearly, collaborate effectively, and enjoy learning new tools
-          that help solve complex problems with discipline and precision.
-        </p>
-      </section>
-
-      <section className="panel education-panel" id="education">
-        <h2>{t.educationTitle}</h2>
-        <div className="timeline-item">
-          <h3>Bachelor of Science in Information Technology</h3>
-          <p>University of Rwanda, Kigali</p>
-          <span>Expected Graduation: 2026</span>
+          <a href="#contact" className="btn">
+            {copy.contactMe}
+          </a>
         </div>
       </section>
 
-      <section className="panel" id="capabilities">
-        <h2>{t.capabilitiesTitle}</h2>
-        <div className="capability-grid">
-          {capabilities.map((capability) => (
-            <article key={capability.title} className="capability-card">
-              <h3>{capability.title}</h3>
-              <p>{capability.details}</p>
+      <section id="about" className="about">
+        <div className="about-content">
+          <h2 className="heading">{copy.aboutTitle}</h2>
+          <h3>
+            {copy.aboutRole}
+          </h3>
+          <p>{copy.aboutBody}</p>
+          <a href="#services" className="btn">
+            {copy.readMore}
+          </a>
+        </div>
+        <div className="about-img">
+          <Image src="/images/adrien-mizero.jpeg" alt="Adrien profile" width={420} height={420} />
+        </div>
+      </section>
+
+      <section id="services" className="services">
+        <h2 className="heading">{copy.myServices}</h2>
+        <div className="services-container">
+          <div className="services-box">
+            <i className="bx bx-code" />
+            <h3>Web Development</h3>
+            <p>
+              End-to-end web products from architecture and API design to frontend implementation
+              and deployment.
+            </p>
+            <a href="#contact" className="btn">
+              Read More
+            </a>
+          </div>
+          <div className="services-box">
+            <i className="bx bx-palette" />
+            <h3>Mobile App Development</h3>
+            <p>
+              Cross-platform mobile applications built with Flutter for smooth performance,
+              responsive layouts, and reliable user experiences.
+            </p>
+            <a href="#contact" className="btn">
+              Read More
+            </a>
+          </div>
+          <div className="services-box">
+            <i className="bx bx-data" />
+            <h3>API Integration</h3>
+            <p>
+              Reliable integrations for payment, media processing, maps, and third-party data
+              services.
+            </p>
+            <a href="#contact" className="btn">
+              Read More
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section className="services core-capabilities-section">
+        <h2 className="heading">Core Capabilities</h2>
+        <div className="services-container">
+          {coreCapabilities.map((item) => (
+            <div className="services-box" key={item.title}>
+              <h3>{item.title}</h3>
+              <p>{item.description}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section id="experience" className="services experience-section">
+        <h2 className="heading">{uiText.experienceTitle}</h2>
+        <div className="experience-tree">
+          {experiences.map((item) => (
+            <article className="services-box experience-card" key={`${item.company}-${item.role}`}>
+              <h3>{item.role}</h3>
+              <p className="experience-row">
+                <strong>Company:</strong> {item.company}
+              </p>
+              <p className="experience-row">{item.description}</p>
+              <p className="experience-row">
+                <strong>Start Date:</strong> {item.startDate}
+              </p>
+              <p className="experience-row">
+                <strong>End Date:</strong> {item.endDate}
+              </p>
             </article>
           ))}
         </div>
       </section>
 
-      <section className="skills-section" id="skills">
-        <article className="panel">
-          <h2>{t.skillsTitle}</h2>
-          <TechnicalSkills
-            skills={skills}
-            initiallyVisible={8}
-            moreLabel={t.skillsShowMore}
-            lessLabel={t.skillsShowLess}
-          />
-        </article>
-
-        <article className="panel">
-          <h2>{t.languagesTitle}</h2>
-          <div className="language-list">
-            <div>
-              <strong>English</strong>
-              <span>Fluent</span>
-            </div>
-            <div>
-              <strong>French</strong>
-              <span>Beginner</span>
-            </div>
-            <div>
-              <strong>Kinyarwanda</strong>
-              <span>Mother tongue</span>
-            </div>
-          </div>
-        </article>
-      </section>
-
-      <section className="panel" id="certifications">
-        <h2>{t.certificationsTitle}</h2>
-        <div className="cert-grid">
-          {certifications.map((certification) => (
-            <div key={certification} className="cert-card">
-              {certification}
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section className="panel" id="workflow">
-        <h2>{t.workflowTitle}</h2>
-        <div className="workflow-grid">
-          {process.map((step, index) => (
-            <article key={step} className="workflow-card">
-              <span>0{index + 1}</span>
-              <p>{step}</p>
+      <section className="services education-section">
+        <p className="section-sticker">{uiText.educationTitle}</p>
+        <h2 className="heading">{uiText.educationTitle}</h2>
+        <div className="services-container">
+          {education.map((item) => (
+            <article className="services-box education-card" key={`${item.program}-${item.period}`}>
+              <h3>{item.program}</h3>
+              <p className="education-meta">{item.institution}</p>
+              <p className="education-period">{item.period}</p>
+              <p>{item.description}</p>
             </article>
           ))}
         </div>
       </section>
 
-      <section className="panel contact-panel" id="contact">
-        <h2>{t.contactTitle}</h2>
-        <p>{t.contactBody}</p>
-        
-        <ContactForm translations={{
-          formName: t.formName,
-          formEmail: t.formEmail,
-          formMessage: t.formMessage,
-          formSend: t.formSend,
-          formSending: t.formSending,
-          formSuccess: t.formSuccess,
-          formError: t.formError,
-        }} />
-
-        <div className="contact-footer">
-          <a href="#top" className="secondary-button">{t.backToTop}</a>
+      <section id="certifications" className="services certifications-section">
+        <h2 className="heading">{copy.myCertifications}</h2>
+        <div className="services-container">
+          {certifications.map((item) => (
+            <div className="services-box certification-box" key={item}>
+              <i className="bx bx-badge-check" />
+              <h3>{copy.certificate}</h3>
+              <p>{item}</p>
+            </div>
+          ))}
         </div>
       </section>
 
-      <a href="mailto:admizero66@gmail.com?subject=Project%20Opportunity" className="fab-hire-me" aria-label={t.hireMe}>
-        {t.hireMe}
+      <section id="testimonials" className="testimonials">
+        <h2 className="heading">{copy.testimonial}</h2>
+        <div className="wrapper">
+          {testimonials.map((item) => (
+            <div className="testimonial-item" key={item.name}>
+              <Image src="/images/adrien-mizero.jpeg" alt={item.name} width={140} height={140} />
+              <h2>{item.name}</h2>
+              <div className="rating">
+                <i className="bx bxs-star" id="star" />
+                <i className="bx bxs-star" id="star" />
+                <i className="bx bxs-star" id="star" />
+                <i className="bx bxs-star" id="star" />
+                <i className="bx bxs-star" id="star" />
+              </div>
+              <p>{item.text}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section id="contact" className="contact">
+        <h2 className="heading">{copy.contactMe}</h2>
+        <ContactForm
+          translations={{
+            formName: uiText.formName,
+            formEmail: uiText.formEmail,
+            formMessage: uiText.formMessage,
+            formSend: copy.sendMessage,
+            formSending: copy.sending,
+            formSuccess: copy.success,
+            formError: copy.error
+          }}
+        />
+      </section>
+
+      <footer className="footer">
+        <div className="social">
+          <a href="https://www.linkedin.com/in/adrien-mizero-b4690539a" target="_blank" rel="noreferrer" aria-label="LinkedIn">
+            <i className="bx bxl-linkedin" />
+          </a>
+          <a href="https://github.com" target="_blank" rel="noreferrer" aria-label="GitHub">
+            <i className="bx bxl-github" />
+          </a>
+          <a href="mailto:admizero66@gmail.com" aria-label="Email">
+            <i className="bx bxs-envelope" />
+          </a>
+          <a href="tel:+250786649017" aria-label="Phone">
+            <i className="bx bxs-phone" />
+          </a>
+        </div>
+        <p className="copyright">&copy; Adrien Mizero - All Rights Reserved</p>
+      </footer>
+
+      <a href="#contact" className="hire-me-btn" aria-label={copy.hireMe}>
+        {copy.hireMe}
       </a>
-    </main>
+    </>
   );
 }

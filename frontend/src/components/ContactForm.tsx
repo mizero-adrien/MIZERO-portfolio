@@ -76,45 +76,43 @@ export default function ContactForm({ translations }: ContactFormProps) {
 
   return (
     <form onSubmit={handleSubmit} className="contact-form">
-      <div className="form-row">
-        <div className="form-group">
-          <label htmlFor="name">{translations.formName}</label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            placeholder="Your name"
-            required
-            disabled={isSubmitting}
-          />
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="email">{translations.formEmail}</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            placeholder="your.email@example.com"
-            required
-            disabled={isSubmitting}
-          />
-        </div>
+      <div className="input-box label-row">
+        <label htmlFor="name">{translations.formName}</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          value={formData.name}
+          onChange={handleChange}
+          placeholder="Full Name"
+          required
+          disabled={isSubmitting}
+        />
       </div>
 
-      <div className="form-group">
+      <div className="input-box label-row">
+        <label htmlFor="email">{translations.formEmail}</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          value={formData.email}
+          onChange={handleChange}
+          placeholder="Email Address"
+          required
+          disabled={isSubmitting}
+        />
+      </div>
+
+      <div className="input-box label-row">
         <label htmlFor="message">{translations.formMessage}</label>
         <textarea
           id="message"
           name="message"
           value={formData.message}
           onChange={handleChange}
-          placeholder="Your message here..."
-          rows={5}
+          placeholder="Your Message"
+          rows={8}
           required
           disabled={isSubmitting}
         />
@@ -122,7 +120,7 @@ export default function ContactForm({ translations }: ContactFormProps) {
 
       <button
         type="submit"
-        className="primary-button"
+        className="btn"
         disabled={isSubmitting}
       >
         {isSubmitting ? translations.formSending : translations.formSend}

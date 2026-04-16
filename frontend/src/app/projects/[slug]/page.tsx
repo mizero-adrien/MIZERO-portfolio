@@ -1,9 +1,8 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
-import LanguageSwitcher from '@/components/LanguageSwitcher';
-import ThemeToggle from '@/components/ThemeToggle';
 import { notFound } from 'next/navigation';
+import PortfolioHeader from '@/components/PortfolioHeader';
 import { getLang, ui } from '@/data/i18n';
 import { projects } from '@/data/projects';
 
@@ -30,7 +29,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   return {
     title: `${project.name} | Adrien Mizero`,
-    description: project.description
+    description: project.shortDescription
   };
 }
 
@@ -45,87 +44,87 @@ export default async function ProjectDetailPage({ params, searchParams }: Props)
     notFound();
   }
 
+  const status = project.liveDemoUrl && project.liveDemoUrl.trim().length > 0 ? 'Live' : 'Under Development';
+
   return (
-    <main className="page-shell">
-      <header className="top-nav" id="top">
-        <Link href={`/?lang=${lang}`} className="brand">
-          <span>AM</span>
-          <strong>Adrien Mizero</strong>
-        </Link>
-        <nav aria-label="Projects navigation">
-          <Link href={`/?lang=${lang}`}>{t.home}</Link>
-          <Link href={`/projects?lang=${lang}`}>{t.navProjects}</Link>
-          <Link href={`/?lang=${lang}#contact`}>{t.navContact}</Link>
-        </nav>
-        <div className="header-controls">
-          <ThemeToggle lightLabel={t.themeLight} darkLabel={t.themeDark} />
-          <LanguageSwitcher />
-        </div>
-      </header>
+    <>
+      <PortfolioHeader
+        labels={{
+          home: t.home,
+          about: t.navAbout,
+          services: 'Services',
+          projects: t.navProjects,
+          blog: t.navBlog,
+          certifications: t.certificationsTitle,
+          experience: t.experienceTitle
+        }}
+        themeLight={t.themeLight}
+        themeDark={t.themeDark}
+      />
 
-      <section className="panel">
-        <p className="eyebrow">{t.projectDetail}</p>
-        <h1>{project.name}</h1>
-        <p className="lede">{project.shortDescription}</p>
-        <div className="project-actions">
-          <Link href={`/projects?lang=${lang}`} className="secondary-button">
-            {t.backToAllProjects}
-          </Link>
-          {project.liveDemoUrl ? (
-            <a href={project.liveDemoUrl} target="_blank" rel="noreferrer" className="primary-button">
-              {t.liveDemo}
-            </a>
-          ) : null}
-          {project.githubUrl ? (
-            <a href={project.githubUrl} target="_blank" rel="noreferrer" className="secondary-button">
-              {t.sourceCode}
-            </a>
-          ) : null}
-        </div>
-      </section>
+      <section className="services project-detail-section" id="project-detail">
+        <h2 className="heading">{project.name}</h2>
+        <div className="services-container">
+          <article className="services-box project-detail-card">
+            <p>{project.shortDescription}</p>
+            <p className="project-status-row">
+              <strong>Condition:</strong> {status}
+            </p>
+            <p className="project-status-row">
+              <strong>Description:</strong> {project.description}
+            </p>
+            <p className="project-status-row">
+              <strong>Challenge:</strong> {project.challenge}
+            </p>
+            <p className="project-status-row">
+              <strong>Solution:</strong> {project.solution}
+            </p>
+            <p className="project-status-row">
+              <strong>Tech Stack:</strong> {project.techStack.join(', ')}
+            </p>
 
-      <section className="content-grid">
-        <article className="panel">
-          <h2>{t.challenge}</h2>
-          <p>{project.challenge}</p>
-        </article>
-        <article className="panel">
-          <h2>{t.solution}</h2>
-          <p>{project.solution}</p>
-        </article>
-      </section>
+            <div className="project-links-row">
+              {project.githubUrl ? (
+                <a href={project.githubUrl} target="_blank" rel="noreferrer" className="btn btn-small">
+                  GitHub Link
+                </a>
+              ) : (
+                <span className="project-link-disabled">GitHub: Not Available</span>
+              )}
 
-      <section className="panel">
-        <h2>{t.techStack}</h2>
-        <div className="skill-cloud">
-          {project.techStack.map((tag) => (
-            <span key={tag}>{tag}</span>
-          ))}
-        </div>
-      </section>
-
-      <section className="panel">
-        <h2>Screenshots</h2>
-        <div className="screenshot-grid">
-          {project.screenshots.length > 0 ? (
-            project.screenshots.map((screenshot, index) => (
-              <figure key={screenshot} className="screenshot-card">
-                  <Image
-                    src={screenshot}
-                    alt={`${project.name} screenshot ${index + 1}`}
-                    width={1200}
-                    height={720}
-                    className="screenshot-image"
-                  />
-              </figure>
-            ))
-          ) : (
-            <div className="screenshot-empty">
-              No screenshots added yet. Put image files in <code>public/images</code> and add the paths in <code>src/data/projects.ts</code>.
+              {project.liveDemoUrl ? (
+                <a href={project.liveDemoUrl} target="_blank" rel="noreferrer" className="btn btn-small">
+                  Live Link
+                </a>
+              ) : (
+                <span className="project-link-disabled">Live: Under Development</span>
+              )}
             </div>
-          )}
+
+            <div className="project-links-row">
+              <Link href={`/projects?lang=${lang}`} className="btn btn-small">
+                Back to Projects
+              </Link>
+              <Link href={`/?lang=${lang}#contact`} className="btn btn-small">
+                Discuss this Project
+              </Link>
+            </div>
+          </article>
         </div>
       </section>
-    </main>
+
+      {project.screenshots.length > 0 ? (
+        <section className="services project-detail-section">
+          <h2 className="heading">Screenshots</h2>
+          <div className="services-container screenshot-cards">
+            {project.screenshots.map((image, index) => (
+              <div className="services-box screenshot-box" key={image}>
+                <Image src={image} alt={`${project.name} screenshot ${index + 1}`} width={1200} height={720} />
+              </div>
+            ))}
+          </div>
+        </section>
+      ) : null}
+    </>
   );
 }
